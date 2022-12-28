@@ -27,6 +27,54 @@ public class ExameDao extends Dao {
 		}
 	}
 	
+	public boolean validaExamesRealizados(String cod) {
+		StringBuilder sql = new StringBuilder();
+		
+		sql 
+			.append("SELECT id_exame ")
+			.append("FROM exames_realizados ")
+			.append("WHERE id_exame = ?");
+		
+		try (Connection con = getConexao(); 
+			 PreparedStatement ps = con.prepareStatement(sql.toString())) {
+			 ps.setString(1, cod);
+			 ResultSet rs = ps.executeQuery();
+			 return  rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+	
+	public void delete(String rowId) throws Exception {
+		StringBuilder sql = new StringBuilder("DELETE FROM exame WHERE rowid = ?;");
+		try(Connection con = getConexao();
+			PreparedStatement  ps = con.prepareStatement(sql.toString())){
+			ps.setString(1, rowId);
+			ps.executeUpdate();
+			//throw new Exception("ENTREI AQUI --->>>>"+ps.toString());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void update(ExameVo exameVo) {
+		StringBuilder update = new StringBuilder("UPDATE exame SET nm_exame = ? WHERE (rowid = ?);");
+		
+		try(Connection con = getConexao();
+			PreparedStatement  ps = con.prepareStatement(update.toString())){
+			
+					ps.setString(1, exameVo.getNome());
+					ps.setString(2, exameVo.getRowid());
+					ps.executeUpdate();
+					
+			}catch (SQLException e) {
+					String.format("Erro ao atulaziar exame [%s]", e.getMessage());
+			}
+	
+	}
+	
 	public List<ExameVo> findAllExames(){
 		StringBuilder query = new StringBuilder("SELECT rowid id, nm_exame nome FROM exame");
 		try(

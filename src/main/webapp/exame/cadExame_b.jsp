@@ -57,8 +57,12 @@
 									<a href="${editar}" class="btn btn-warning text-white">
 										<s:text name="label.editar"/>
 									</a>
+									
+									<s:url action="excluirExames" var="excluir">
+										<s:param name="exameVo.rowid" value="rowid"></s:param>
+									</s:url>
 
-									<a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmarExclusao">
+									<a href="${excluir}" class="btn btn-danger" ><!-- data-bs-toggle="modal" data-bs-target="#confirmarExclusao" -->
 										<s:text name="label.excluir"/>
 									</a>
 								</td>
@@ -105,7 +109,7 @@
 					<s:text name="label.nao"/>
 				</a>
 	        	
-				<s:a id="excluir" class="btn btn-primary" style="width: 75px;">
+				<s:a id="excluir" value="%{excluirExames}" class="btn btn-primary" style="width: 75px;">
 					<s:text name="label.sim"/>
 				</s:a>						
 		      </div>

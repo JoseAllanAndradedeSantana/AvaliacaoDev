@@ -15,44 +15,60 @@ public class ExameAction extends Action {
 	private ExameBusiness business = new ExameBusiness();
 	private ExameFilter filtrar = new ExameFilter();
 	private ExameVo exameVo = new ExameVo();
-	
+
 	public String todos() {
-		exames.addAll(business.trazerTodosOsExames());	
+		exames.addAll(business.trazerTodosOsExames());
 
 		return SUCCESS;
 	}
-	
+
 	public String filtrar() {
-		if(filtrar.isNullOpcoesCombo())
+		if (filtrar.isNullOpcoesCombo())
 			return REDIRECT;
-		
+
 		exames = business.filtrarExames(filtrar);
-		
+
 		return SUCCESS;
 	}
-	
+
 	public String novo() {
-		if(exameVo.getNome() == null)
+		if (exameVo.getNome() == null) {
 			return INPUT;
-		
+		}
 		business.salvarExame(exameVo);
-		
 		return REDIRECT;
 	}
-	
-	public String editar() {
-		if(exameVo.getRowid() == null)
+
+	public String excluir() {
+		if (exameVo.getRowid() == null) {
 			return REDIRECT;
-		
+		}
+		business.apagar(exameVo.getRowid());
+		return REDIRECT;
+	}
+
+	public String editar() {
+
+		if (exameVo.getRowid() == null) {
+			return REDIRECT;
+		}
+
 		exameVo = business.buscarExamePor(exameVo.getRowid());
-		
-		return INPUT;
+		return "editar";
 	}
 	
-	public List<OpcoesComboBuscarExames> getListaOpcoesCombo(){
+	public String update() {
+        if (exameVo.getNome() == null) {
+        	return INPUT;
+        }
+        business.atualizar(exameVo);
+        return REDIRECT;
+    }
+
+	public List<OpcoesComboBuscarExames> getListaOpcoesCombo() {
 		return Arrays.asList(OpcoesComboBuscarExames.values());
 	}
-	
+
 	public List<ExameVo> getExames() {
 		return exames;
 	}

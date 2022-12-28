@@ -12,10 +12,31 @@
 	<constant name="struts.action.excludePattern" value="/webjars/.*,/h2-console/*" />
 	
     <package name="br.com.soc.sistema" extends="struts-default" strict-method-invocation="false">
+    
         <action name="*Exames" class="br.com.soc.sistema.action.exame.ExameAction" method="{1}">
         	<result name="success">/exame/cadExame_b.jsp</result>
             <result name="input">/exame/cadExame_i.jsp</result>
+            <result name="editar">/exame/editarExame.jsp</result>
         	<result name="redirect" type="redirectAction">todosExames</result>
+        </action>
+        
+        <action name="*Funcionarios" class="br.com.soc.sistema.action.funcionario.FuncionarioAction" method="{1}">
+        	<result name="success">/funcionario/cadFuncionario_b.jsp</result>
+            <result name="input">/funcionario/cadFuncionario_i.jsp</result>
+            <result name="editar">/funcionario/editarFuncionario.jsp</result>
+        	<result name="redirect" type="redirectAction">todosFuncionarios</result>
+        </action>
+        
+        <action name="*ExamesRealizados" class="br.com.soc.sistema.action.examesrealizados.ExamesRealizadosAction" method="{1}">
+        	<result name="success">/examesrealizados/cadExamesRealizados_b.jsp</result>
+            <result name="input">/examesrealizados/cadExamesRealizados_i.jsp</result>
+            <result name="editar">/examesrealizados/editarExamesRealizados.jsp</result>
+        	<result name="redirect" type="redirectAction">todosExamesRealizados</result>
+        </action>
+        
+         <action name="*Relatorios" class="br.com.soc.sistema.action.relatorios.RelatoriosAction" method="{1}">
+            <result name="input">/examesrealizados/buscarExamesRealizadosdt.jsp</result>
+            <result name="success">/examesrealizados/relatorio.jsp</result>
         </action>
     </package>
 
